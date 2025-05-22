@@ -25,32 +25,33 @@
             background-color: var(--light-grey);
             color: var(--dark-text);
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column; /* Sayfa içeriğini dikeyde sıralar */
+            justify-content: flex-start; /* İçeriği yukarıdan başlatır */
+            align-items: center; /* Yatayda ortalar */
             min-height: 100vh;
             box-sizing: border-box;
-            padding: 20px; /* Sayfanın kenarlarından boşluk bırakır */
+            padding: 0; /* body'nin kendi padding'ini kaldırdık */
         }
 
-        .container {
-            background-color: #ffffff;
-            padding: 40px 50px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px var(--shadow-light);
-            max-width: 960px; /* Kontrolün maksimum genişliği */
+        .container-wrapper { /* Tüm sayfa içeriğini saran yeni bir kapsayıcı */
+            max-width: 960px;
             width: 100%;
-            text-align: center;
+            margin: 20px auto; /* Üstten ve alttan boşluk, yatayda ortala */
+            box-shadow: 0 10px 30px var(--shadow-light); /* Hafif gölge */
+            border-radius: 12px;
+            overflow: hidden; /* İçerik taşmasını engeller, yuvarlak köşeler için */
+            background-color: #ffffff; /* Arka plan rengi */
         }
 
         /* Hero Section */
         .hero-section {
             background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
             color: white;
-            padding: 80px 0;
+            padding: 60px 0; /* Dikey boşluğu azalttık, logo için yer açtık */
             text-align: center;
             position: relative;
             overflow: hidden;
-            border-radius: 12px 12px 0 0; /* Sadece üst köşeler yuvarlak */
+            /* border-radius: 12px 12px 0 0;  Artık container-wrapper'da var */
         }
 
         .hero-section::before {
@@ -68,29 +69,34 @@
         .hero-content {
             position: relative;
             z-index: 2;
+            padding: 0 20px; /* İçerik için yatay boşluk */
         }
 
-        /* Başlık ve Logo Stili (Logoyu başlıkla hizalamak için güncellendi) */
+        /* Logo Stili */
+        .site-logo {
+            max-width: 250px; /* Maksimum genişlik, daha büyük */
+            height: auto; /* Orantılı yükseklik */
+            margin-bottom: 25px; /* Başlıkla arasında boşluk */
+            display: block; /* Ortalamak için */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Başlık Stili */
         .hero-section h1 {
             font-family: 'Montserrat', sans-serif;
             font-size: 3.8em;
+            margin-top: 0; /* Logo üstte olduğu için üst boşluğu kaldırdık */
             margin-bottom: 20px;
             font-weight: 700;
             line-height: 1.1;
             color: white;
             border-bottom: none;
             padding-bottom: 0;
-            display: flex; /* Logo ve başlık metnini yan yana hizalar */
-            align-items: center; /* Dikeyde ortalar */
-            justify-content: center; /* Yatayda ortalar */
-            gap: 15px; /* Logo ve başlık arasına boşluk */
-        }
-
-        .site-logo {
-            height: 70px; /* Logonuzun yüksekliğini buradan ayarlayabilirsiniz */
-            width: auto; /* Genişliği otomatik ayarlar */
-            /* İsteğe bağlı: Hafif bir gölge ekleyebilirsiniz */
-            /* filter: drop-shadow(0 0 5px rgba(0,0,0,0.3)); */
+            /* display: flex; Logo artık başlıkla aynı hizada değil */
+            /* align-items: center; */
+            /* justify-content: center; */
+            /* gap: 15px; */
         }
 
         .hero-section p {
@@ -129,7 +135,7 @@
         /* Features Section */
         .features-section {
             padding: 60px 0;
-            background-color: white;
+            background-color: white; /* Arka plan rengi, container-wrapper içinde olacak */
             text-align: center;
         }
 
@@ -148,6 +154,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             margin-top: 40px;
+            padding: 0 20px; /* Grid için yatay boşluk */
         }
 
         .feature-item {
@@ -203,7 +210,11 @@
         /* Responsive Ayarlar */
         @media (max-width: 768px) {
             .hero-section {
-                padding: 60px 0;
+                padding: 40px 0; /* Küçük ekranlarda dikey boşluğu daha da azalt */
+            }
+            .site-logo {
+                max-width: 180px; /* Küçük ekranlarda logo boyutunu küçült */
+                margin-bottom: 20px;
             }
             .hero-section h1 {
                 font-size: 2.8em;
@@ -218,16 +229,18 @@
             .features-section h2 {
                 font-size: 2em;
             }
-            .site-logo { /* Responsive logo boyutu */
-                height: 50px;
-            }
         }
 
         @media (max-width: 480px) {
+            .hero-section {
+                padding: 30px 0;
+            }
+            .site-logo {
+                max-width: 150px;
+                margin-bottom: 15px;
+            }
             .hero-section h1 {
                 font-size: 2.2em;
-                flex-direction: column; /* Küçük ekranlarda alt alta gelsinler */
-                gap: 5px;
             }
             .hero-section p {
                 font-size: 1em;
@@ -245,50 +258,45 @@
             .feature-item {
                 padding: 25px;
             }
-            .site-logo { /* En küçük ekranlarda logo boyutu */
-                height: 40px;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="hero-section">
-        <div class="container hero-content">
-            <h1>
-                <img src="img/Logo.jpeg" alt="Nakliye Fiyat Hesaplama Sistemi Logosu" class="site-logo">
-                Nakliye Fiyat Hesaplama Sistemi
-            </h1>
-            <p><strong>Mesafe Girin, Fiyatı Anında Görün!</strong> İşletmenizin veya kişisel nakliye ihtiyaçlarınızın maliyetini hızlı, doğru ve kolayca hesaplayın.</p>
-            <a href="hesaplama.html" class="hero-button">Hesaplamaya Başla</a>
+    <div class="container-wrapper">
+        <div class="hero-section">
+            <div class="hero-content">
+                <img src="img/logo.jpeg" alt="Nakcep Logosu" class="site-logo">
+                <h1>Nakliye Fiyat Hesaplama Sistemi</h1>
+                <p><strong>Mesafe Girin, Fiyatı Anında Görün!</strong> İşletmenizin veya kişisel nakliye ihtiyaçlarınızın maliyetini hızlı, doğru ve kolayca hesaplayın.</p>
+                <a href="hesaplama.html" class="hero-button">Hesaplamaya Başla</a>
+            </div>
         </div>
-    </div>
 
-    <div class="features-section">
-        <div class="container">
-            <h2>✨ Sistemimizin Temel Avantajları</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <div class="icon-box"><i class="fas fa-tachometer-alt"></i></div>
-                    <h3>Hızlı ve Otomatik Hesaplama</h3>
-                    <p>Manuel hesaplamalarla zaman kaybetmeyin. Sistemimiz mesafeyi algılayarak fiyatı saniyeler içinde sunar.</p>
-                </div>
-                <div class="feature-item">
-                    <div class="icon-box"><i class="fas fa-user-friends"></i></div>
-                    <h3>Kullanıcı Dostu Arayüz</h3>
-                    <p>Sade ve anlaşılır tasarımı sayesinde herkes kolayca kullanabilir. Teknik bilgiye ihtiyaç duymazsınız.</p>
-                </div>
-                <div class="feature-item">
-                    <div class="icon-box"><i class="fas fa-globe"></i></div>
-                    <h3>Web Tabanlı ve Erişilebilir</h3>
-                    <p>İnternet bağlantısı olan her cihazdan (bilgisayar, tablet, telefon) istediğiniz yerden ulaşım imkanı sunar.</p>
-                </div>
-                 <div class="feature-item">
-                    <div class="icon-box"><i class="fas fa-cogs"></i></div>
-                    <h3>Geliştirilebilir ve Esnek</h3>
-                    <p>Projenizin gelecekteki ihtiyaçlarına göre kolayca genişletilebilecek ve iyileştirilebilecek esnek bir mimariye sahiptir.</p>
+        <div class="features-section">
+            <div class="container"> <h2>✨ Sistemimizin Temel Avantajları</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="icon-box"><i class="fas fa-tachometer-alt"></i></div>
+                        <h3>Hızlı ve Otomatik Hesaplama</h3>
+                        <p>Manuel hesaplamalarla zaman kaybetmeyin. Sistemimiz mesafeyi algılayarak fiyatı saniyeler içinde sunar.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon-box"><i class="fas fa-user-friends"></i></div>
+                        <h3>Kullanıcı Dostu Arayüz</h3>
+                        <p>Sade ve anlaşılır tasarımı sayesinde herkes kolayca kullanabilir. Teknik bilgiye ihtiyaç duymazsınız.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon-box"><i class="fas fa-globe"></i></div>
+                        <h3>Web Tabanlı ve Erişilebilir</h3>
+                        <p>İnternet bağlantısı olan her cihazdan (bilgisayar, tablet, telefon) istediğiniz yerden ulaşım imkanı sunar.</p>
+                    </div>
+                     <div class="feature-item">
+                        <div class="icon-box"><i class="fas fa-cogs"></i></div>
+                        <h3>Geliştirilebilir ve Esnek</h3>
+                        <p>Projenizin gelecekteki ihtiyaçlarına göre kolayca genişletilebilecek ve iyileştirilebilecek esnek bir mimariye sahiptir.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </div> </body>
 </html>
