@@ -4,206 +4,291 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nakliye Fiyat Hesaplama Sistemi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #3498db; /* Mavi ton */
-            --secondary-color: #2c3e50; /* Koyu mavi */
-            --accent-color: #28a745; /* Yeşil */
-            --text-color: #333;
-            --bg-color: #f8f9fa; /* Hafif gri arka plan */
-            --border-color: #e0e0e0;
+            --primary-blue: #3498db;
+            --dark-blue: #2c3e50;
+            --green-accent: #28a745;
+            --light-grey: #f8f9fa;
+            --dark-text: #333;
+            --light-text: #666;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
         }
 
         body {
-            font-family: 'Poppins', sans-serif; /* Google Font'u kullandık */
-            line-height: 1.7;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
             margin: 0;
-            padding: 20px; /* Kenarlardan boşluk */
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--light-grey);
+            color: var(--dark-text);
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* İçeriği yukarıdan başlar */
-            min-height: 100vh; /* Sayfanın tamamını kaplar */
-            box-sizing: border-box; /* Padding'in genişliğe dahil olmasını sağlar */
+            align-items: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+            padding: 20px; /* Sayfanın kenarlarından boşluk bırakır */
         }
 
         .container {
             background-color: #ffffff;
             padding: 40px 50px;
-            border-radius: 12px; /* Daha yuvarlak köşeler */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Hafif gölge */
-            max-width: 800px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px var(--shadow-light);
+            max-width: 960px; /* Kontrolün maksimum genişliği */
             width: 100%;
-            text-align: center; /* Buton için ortalama */
+            text-align: center;
         }
 
-        h1 {
-            color: var(--secondary-color);
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-            font-size: 2.5em; /* Daha büyük başlık */
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px 12px 0 0; /* Sadece üst köşeler yuvarlak */
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>') repeat;
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Başlık ve Logo Stili (Logoyu başlıkla hizalamak için güncellendi) */
+        .hero-section h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.8em;
+            margin-bottom: 20px;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center; /* Başlığı ortala */
-            gap: 15px;
+            line-height: 1.1;
+            color: white;
+            border-bottom: none;
+            padding-bottom: 0;
+            display: flex; /* Logo ve başlık metnini yan yana hizalar */
+            align-items: center; /* Dikeyde ortalar */
+            justify-content: center; /* Yatayda ortalar */
+            gap: 15px; /* Logo ve başlık arasına boşluk */
         }
 
-        h2 {
-            color: var(--secondary-color);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-            margin-top: 40px;
-            margin-bottom: 25px;
-            font-size: 1.8em;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .site-logo {
+            height: 70px; /* Logonuzun yüksekliğini buradan ayarlayabilirsiniz */
+            width: auto; /* Genişliği otomatik ayarlar */
+            /* İsteğe bağlı: Hafif bir gölge ekleyebilirsiniz */
+            /* filter: drop-shadow(0 0 5px rgba(0,0,0,0.3)); */
         }
 
-        h3 {
-            color: var(--secondary-color);
+        .hero-section p {
+            font-size: 1.4em;
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            opacity: 0.9;
+            color: white;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background-color: var(--green-accent);
+            color: white;
             font-size: 1.4em;
             font-weight: 600;
-            margin-bottom: 25px;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .hero-button:hover {
+            background-color: #218838;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(40, 167, 69, 0.5);
+        }
+
+        .hero-button:active {
+            transform: translateY(0px);
+            box-shadow: 0 5px 10px rgba(40, 167, 69, 0.3);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 60px 0;
+            background-color: white;
+            text-align: center;
+        }
+
+        .features-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5em;
+            color: var(--dark-blue);
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--primary-blue);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px var(--shadow-medium);
+        }
+
+        .feature-item .icon-box {
+            font-size: 2.5em;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            width: 60px;
+            height: 60px;
+            background-color: #e6f2fa;
+            border-radius: 50%;
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 10px;
-        }
-
-        ul {
-            list-style-type: none; /* Varsayılan madde işaretlerini kaldırdık */
-            padding: 0;
+            align-items: center;
             margin-left: 0;
-            text-align: left; /* Listeyi sola yasla */
         }
 
-        ul li {
-            background-color: #f2f4f6; /* Liste öğeleri için hafif arka plan */
-            margin-bottom: 12px;
-            padding: 12px 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Hafif gölge */
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-weight: 500;
+        .feature-item h3 {
+            font-size: 1.5em;
+            color: var(--dark-blue);
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: left;
+            display: block;
         }
 
-        ul li::before {
-            content: '✅'; /* Madde işareti yerine emoji */
-            margin-right: 8px;
-            font-size: 1.1em;
-            flex-shrink: 0; /* Emoji sıkışmasın */
-        }
-
-        p {
-            margin-bottom: 20px;
-            font-size: 1.1em;
-            color: #555;
-            text-align: left; /* Paragrafları sola yasla */
-        }
-
-        strong {
-            color: var(--primary-color); /* Vurgulu kelimeler için ana renk */
-            font-weight: 700;
+        .feature-item p {
+            font-size: 1em;
+            color: var(--light-text);
+            text-align: left;
         }
 
         hr {
-            border: 0;
-            height: 1px;
-            background: var(--border-color);
-            margin: 50px 0;
-        }
-
-        .icon {
-            font-size: 1.3em;
-            line-height: 1; /* İkonun dikey hizasını düzeltir */
-        }
-
-        /* Buton Stili */
-        .start-button {
-            display: inline-block; /* Ortalamak için blok yerine inline-block */
-            margin-top: 40px;
-            padding: 18px 40px;
-            background-color: var(--accent-color); /* Yeşil renk */
-            color: white;
-            font-size: 1.3em; /* Daha büyük font */
-            font-weight: 600;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 50px; /* Daha oval buton */
             border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease; /* Hover ve tıklama efekti için geçiş */
-            box-shadow: 0 8px 15px rgba(40, 167, 69, 0.3); /* Buton gölgesi */
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 60px 0;
         }
 
-        .start-button:hover {
-            background-color: #218838; /* Hover'da daha koyu yeşil */
-            transform: translateY(-3px); /* Hafif yukarı kalkma efekti */
-        }
-
-        .start-button:active {
-            transform: translateY(1px); /* Tıklamada hafif aşağı inme efekti */
-            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
-        }
-
-        /* Küçük ekranlar için responsive ayarlamalar */
-        @media (max-width: 600px) {
-            .container {
-                padding: 30px 20px;
+        /* Responsive Ayarlar */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0;
             }
-            h1 {
-                font-size: 1.8em;
-                margin-bottom: 20px;
+            .hero-section h1 {
+                font-size: 2.8em;
             }
-            h2 {
-                font-size: 1.5em;
-                margin-top: 30px;
-            }
-            h3 {
+            .hero-section p {
                 font-size: 1.2em;
             }
-            .start-button {
-                font-size: 1.1em;
-                padding: 15px 30px;
+            .hero-button {
+                font-size: 1.2em;
+                padding: 15px 35px;
             }
-            ul li {
-                padding: 10px 15px;
-                font-size: 0.95em;
+            .features-section h2 {
+                font-size: 2em;
+            }
+            .site-logo { /* Responsive logo boyutu */
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section h1 {
+                font-size: 2.2em;
+                flex-direction: column; /* Küçük ekranlarda alt alta gelsinler */
+                gap: 5px;
+            }
+            .hero-section p {
+                font-size: 1em;
+            }
+            .hero-button {
+                font-size: 1em;
+                padding: 12px 25px;
+            }
+            .features-section h2 {
+                font-size: 1.8em;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .feature-item {
+                padding: 25px;
+            }
+            .site-logo { /* En küçük ekranlarda logo boyutu */
+                height: 40px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1><span class="icon">🚚</span> Nakliye Fiyat Hesaplama Sistemi</h1>
-        <h3><span class="icon">🚀</span> Hızlı, Otomatik ve Güvenilir Nakliye Ücretleri Cebinizde!</h3>
+    <div class="hero-section">
+        <div class="container hero-content">
+            <h1>
+                <img src="img/logo.jpeg" alt="Nakliye Fiyat Hesaplama Sistemi Logosu" class="site-logo">
+                Nakliye Fiyat Hesaplama Sistemi
+            </h1>
+            <p><strong>Mesafe Girin, Fiyatı Anında Görün!</strong> İşletmenizin veya kişisel nakliye ihtiyaçlarınızın maliyetini hızlı, doğru ve kolayca hesaplayın.</p>
+            <a href="hesaplama.html" class="hero-button">Hesaplamaya Başla</a>
+        </div>
+    </div>
 
-        <p>Bu pratik web uygulaması, girdiğiniz mesafeye göre <strong>nakliye fiyatlarını anında hesaplar</strong> ve size hızlıca sonuç sunar. Artık manuel hesaplamalarla zaman kaybetmeye son!</p>
-
-        <hr>
-
-        <h2><span class="icon">🎯</span> Projenin Amacı</h2>
-        <p>Nakliye süreçlerinde <strong>zaman kaybını önlemek</strong> ve <strong>hatasız fiyatlandırma</strong> sağlamak. Sistem, girilen mesafeye göre doğru nakliye ücretini otomatik olarak belirleyerek kullanıcılara anında bilgi sunar.</p>
-
-        <hr>
-
-        <h2><span class="icon">✨</span> Temel Özellikler</h2>
-        <ul>
-            <li><strong>Kullanıcı Dostu Arayüz:</strong> Sade ve anlaşılır tasarımı sayesinde herkes kolayca kullanabilir.</li>
-            <li><strong>Gerçek Zamanlı Hesaplama:</strong> Mesafe girildiği anda ücreti anında görüntüleyin.</li>
-            <li><strong>Web Tabanlı Erişim:</strong> İstediğiniz yerden, internet bağlantısı olan her cihazdan ulaşım imkanı.</li>
-            <li><strong>Geliştirilebilir Yapı:</strong> İhtiyaçlarınıza göre kolayca genişletilebilecek ve iyileştirilebilecek esnek mimari.</li>
-        </ul>
-
-        <a href="hesaplama.html" class="start-button">Hesaplamaya Başla</a>
+    <div class="features-section">
+        <div class="container">
+            <h2>✨ Sistemimizin Temel Avantajları</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="icon-box"><i class="fas fa-tachometer-alt"></i></div>
+                    <h3>Hızlı ve Otomatik Hesaplama</h3>
+                    <p>Manuel hesaplamalarla zaman kaybetmeyin. Sistemimiz mesafeyi algılayarak fiyatı saniyeler içinde sunar.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon-box"><i class="fas fa-user-friends"></i></div>
+                    <h3>Kullanıcı Dostu Arayüz</h3>
+                    <p>Sade ve anlaşılır tasarımı sayesinde herkes kolayca kullanabilir. Teknik bilgiye ihtiyaç duymazsınız.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon-box"><i class="fas fa-globe"></i></div>
+                    <h3>Web Tabanlı ve Erişilebilir</h3>
+                    <p>İnternet bağlantısı olan her cihazdan (bilgisayar, tablet, telefon) istediğiniz yerden ulaşım imkanı sunar.</p>
+                </div>
+                 <div class="feature-item">
+                    <div class="icon-box"><i class="fas fa-cogs"></i></div>
+                    <h3>Geliştirilebilir ve Esnek</h3>
+                    <p>Projenizin gelecekteki ihtiyaçlarına göre kolayca genişletilebilecek ve iyileştirilebilecek esnek bir mimariye sahiptir.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
