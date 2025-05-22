@@ -80,6 +80,8 @@
             display: block; /* Ortalamak için */
             margin-left: auto;
             margin-right: auto;
+            border-radius: 50%; /* LOGO YUVARLAKLIĞI İÇİN EKLENDİ */
+            object-fit: cover; /* RESMİN ALANA DÜZGÜN SIĞMASI İÇİN EKLENDİ */
         }
 
         /* Başlık Stili */
@@ -93,10 +95,6 @@
             color: white;
             border-bottom: none;
             padding-bottom: 0;
-            /* display: flex; Logo artık başlıkla aynı hizada değil */
-            /* align-items: center; */
-            /* justify-content: center; */
-            /* gap: 15px; */
         }
 
         .hero-section p {
@@ -114,8 +112,11 @@
             color: white;
             font-size: 1.4em;
             font-weight: 600;
+            text-align: center;
             text-decoration: none;
             border-radius: 50px;
+            border: none;
+            cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             box-shadow: 0 10px 20px rgba(40, 167, 69, 0.4);
             letter-spacing: 1px;
@@ -273,7 +274,8 @@
         </div>
 
         <div class="features-section">
-            <div class="container"> <h2>✨ Sistemimizin Temel Avantajları</h2>
+            <div class="container">
+                <h2>✨ Sistemimizin Temel Avantajları</h2>
                 <div class="feature-grid">
                     <div class="feature-item">
                         <div class="icon-box"><i class="fas fa-tachometer-alt"></i></div>
@@ -298,5 +300,6 @@
                 </div>
             </div>
         </div>
-    </div> </body>
+    </div>
+</body>
 </html>
