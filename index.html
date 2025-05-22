@@ -4,101 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nakliye Fiyat Hesaplama Sistemi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 40px auto;
-            max-width: 800px;
-            padding: 0 20px;
-            background-color: #f4f4f4;
-            color: #333;
+        :root {
+            --primary-color: #3498db; /* Mavi ton */
+            --secondary-color: #2c3e50; /* Koyu mavi */
+            --accent-color: #28a745; /* Yeşil */
+            --text-color: #333;
+            --bg-color: #f8f9fa; /* Hafif gri arka plan */
+            --border-color: #e0e0e0;
         }
+
+        body {
+            font-family: 'Poppins', sans-serif; /* Google Font'u kullandık */
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px; /* Kenarlardan boşluk */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* İçeriği yukarıdan başlar */
+            min-height: 100vh; /* Sayfanın tamamını kaplar */
+            box-sizing: border-box; /* Padding'in genişliğe dahil olmasını sağlar */
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px 50px;
+            border-radius: 12px; /* Daha yuvarlak köşeler */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+            max-width: 800px;
+            width: 100%;
+            text-align: center; /* Buton için ortalama */
+        }
+
         h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.5em; /* Daha büyük başlık */
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 10px; /* İkon ile başlık arasına boşluk */
+            justify-content: center; /* Başlığı ortala */
+            gap: 15px;
         }
+
         h2 {
-            color: #34495e;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-            margin-top: 30px;
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+
         h3 {
-            color: #34495e;
+            color: var(--secondary-color);
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
+
         ul {
-            list-style-type: disc;
-            margin-left: 20px;
+            list-style-type: none; /* Varsayılan madde işaretlerini kaldırdık */
+            padding: 0;
+            margin-left: 0;
+            text-align: left; /* Listeyi sola yasla */
         }
+
         ul li {
-            margin-bottom: 8px;
+            background-color: #f2f4f6; /* Liste öğeleri için hafif arka plan */
+            margin-bottom: 12px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Hafif gölge */
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-weight: 500;
         }
+
+        ul li::before {
+            content: '✅'; /* Madde işareti yerine emoji */
+            margin-right: 8px;
+            font-size: 1.1em;
+            flex-shrink: 0; /* Emoji sıkışmasın */
+        }
+
         p {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: #555;
+            text-align: left; /* Paragrafları sola yasla */
         }
+
         strong {
-            color: #c0392b; /* Vurgulu kelimeler için kırmızımsı ton */
+            color: var(--primary-color); /* Vurgulu kelimeler için ana renk */
+            font-weight: 700;
         }
+
         hr {
             border: 0;
             height: 1px;
-            background: #eee;
-            margin: 40px 0;
-        }
-        /* İkonlar için stil (isteğe bağlı, emoji kullanıldı) */
-        .icon {
-            font-size: 1.2em; /* İkon boyutu */
+            background: var(--border-color);
+            margin: 50px 0;
         }
 
-        /* Yeni Buton Stili */
+        .icon {
+            font-size: 1.3em;
+            line-height: 1; /* İkonun dikey hizasını düzeltir */
+        }
+
+        /* Buton Stili */
         .start-button {
-            display: block; /* Butonu blok eleman yapar, tam genişlikte olmasını sağlar */
-            width: fit-content; /* İçeriği kadar genişlik alır */
-            margin: 40px auto 20px auto; /* Ortalamak için */
-            padding: 15px 30px;
-            background-color: #28a745; /* Yeşil renk */
+            display: inline-block; /* Ortalamak için blok yerine inline-block */
+            margin-top: 40px;
+            padding: 18px 40px;
+            background-color: var(--accent-color); /* Yeşil renk */
             color: white;
-            font-size: 1.2em;
+            font-size: 1.3em; /* Daha büyük font */
+            font-weight: 600;
             text-align: center;
-            text-decoration: none; /* Alt çizgiyi kaldırır */
-            border-radius: 8px;
+            text-decoration: none;
+            border-radius: 50px; /* Daha oval buton */
             border: none;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* Hover efekti için geçiş */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Hover ve tıklama efekti için geçiş */
+            box-shadow: 0 8px 15px rgba(40, 167, 69, 0.3); /* Buton gölgesi */
         }
 
         .start-button:hover {
             background-color: #218838; /* Hover'da daha koyu yeşil */
+            transform: translateY(-3px); /* Hafif yukarı kalkma efekti */
+        }
+
+        .start-button:active {
+            transform: translateY(1px); /* Tıklamada hafif aşağı inme efekti */
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+        }
+
+        /* Küçük ekranlar için responsive ayarlamalar */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            h2 {
+                font-size: 1.5em;
+                margin-top: 30px;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+            .start-button {
+                font-size: 1.1em;
+                padding: 15px 30px;
+            }
+            ul li {
+                padding: 10px 15px;
+                font-size: 0.95em;
+            }
         }
     </style>
 </head>
 <body>
-    <h1><span class="icon">🚚</span> Nakliye Fiyat Hesaplama Sistemi</h1>
-    <h3><span class="icon">🚀</span> Hızlı, Otomatik ve Güvenilir Nakliye Ücretleri Cebinizde!</h3>
+    <div class="container">
+        <h1><span class="icon">🚚</span> Nakliye Fiyat Hesaplama Sistemi</h1>
+        <h3><span class="icon">🚀</span> Hızlı, Otomatik ve Güvenilir Nakliye Ücretleri Cebinizde!</h3>
 
-    <p>Bu pratik web uygulaması, girdiğiniz mesafeye göre <strong>nakliye fiyatlarını anında hesaplar</strong> ve size hızlıca sonuç sunar. Artık manuel hesaplamalarla zaman kaybetmeye son!</p>
+        <p>Bu pratik web uygulaması, girdiğiniz mesafeye göre <strong>nakliye fiyatlarını anında hesaplar</strong> ve size hızlıca sonuç sunar. Artık manuel hesaplamalarla zaman kaybetmeye son!</p>
 
-    <hr>
+        <hr>
 
-    <h2><span class="icon">🎯</span> Projenin Amacı</h2>
-    <p>Nakliye süreçlerinde <strong>zaman kaybını önlemek</strong> ve <strong>hatasız fiyatlandırma</strong> sağlamak. Sistem, girilen mesafeye göre doğru nakliye ücretini otomatik olarak belirleyerek kullanıcılara anında bilgi sunar.</p>
+        <h2><span class="icon">🎯</span> Projenin Amacı</h2>
+        <p>Nakliye süreçlerinde <strong>zaman kaybını önlemek</strong> ve <strong>hatasız fiyatlandırma</strong> sağlamak. Sistem, girilen mesafeye göre doğru nakliye ücretini otomatik olarak belirleyerek kullanıcılara anında bilgi sunar.</p>
 
-    <hr>
+        <hr>
 
-    <h2><span class="icon">✨</span> Temel Özellikler</h2>
-    <ul>
-        <li><strong>Kullanıcı Dostu Arayüz:</strong> Sade ve anlaşılır tasarımı sayesinde herkes kolayca kullanabilir.</li>
-        <li><strong>Gerçek Zamanlı Hesaplama:</strong> Mesafe girildiği anda ücreti anında görüntüleyin.</li>
-        <li><strong>Web Tabanlı Erişim:</strong> İstediğiniz yerden, internet bağlantısı olan her cihazdan ulaşım imkanı.</li>
-        <li><strong>Geliştirilebilir Yapı:</strong> İhtiyaçlarınıza göre kolayca genişletilebilecek ve iyileştirilebilecek esnek mimari.</li>
-    </ul>
+        <h2><span class="icon">✨</span> Temel Özellikler</h2>
+        <ul>
+            <li><strong>Kullanıcı Dostu Arayüz:</strong> Sade ve anlaşılır tasarımı sayesinde herkes kolayca kullanabilir.</li>
+            <li><strong>Gerçek Zamanlı Hesaplama:</strong> Mesafe girildiği anda ücreti anında görüntüleyin.</li>
+            <li><strong>Web Tabanlı Erişim:</strong> İstediğiniz yerden, internet bağlantısı olan her cihazdan ulaşım imkanı.</li>
+            <li><strong>Geliştirilebilir Yapı:</strong> İhtiyaçlarınıza göre kolayca genişletilebilecek ve iyileştirilebilecek esnek mimari.</li>
+        </ul>
 
-    <a href="hesaplama.html" class="start-button">Hesaplamaya Başla</a>
-
+        <a href="hesaplama.html" class="start-button">Hesaplamaya Başla</a>
+    </div>
 </body>
 </html>
