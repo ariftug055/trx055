@@ -15,10 +15,3 @@ Nakliye ücretlerini manuel hesaplamakla zaman kaybetmeden, girilen mesafeye gö
 ✅ Gerçek zamanlı fiyat hesaplama  
 ✅ Web tabanlı kullanım  
 ✅ Geliştirilebilir yapı
-
-## 🚀 Kurulum ve Kullanım
-
-1. Bu projeyi bilgisayarınıza klonlayın:
-   ```bash
-   git clone https://github.com/kullaniciadi/nakliye-fiyat.git
-   cd nakliye-fiyat
