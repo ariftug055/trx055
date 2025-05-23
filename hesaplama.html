@@ -672,7 +672,7 @@
     </style>
 </head>
 <body>
-    <h1>NAKCEP SİZLERLE</h1>
+    <h1>NAKLİYE FİYATI HESAPLAMA ARACI</h1>
 
     <div id="app-container">
         <div class="card">
@@ -715,8 +715,8 @@
                             <select id="vehicleType" required>
                                 <option value="custom">Özel (Manuel Giriş)</option>
                                 <option value="heavyTruck">Ağır Yük Tırı (26 Ton)</option>
-                                <option value="mediumTruck">Orta Boy Kamyon (10 Ton)</option>
-                                <option value="lightTruck">Hafif Kamyonet (5 Ton)</option>
+                                <option value="mediumTruck">Orta Boy Kamyon (21 Ton)</option>
+                                <option value="lightTruck">Hafif Kamyonet (19 Ton)</option>
                             </select>
                         </div>
                     </div>
@@ -953,24 +953,24 @@
                 returnTripEmptyFuelConsumption: 28
             },
             'heavyTruck': {
-                dailyTruckFixedCost: 6500, // Daha büyük tır için maliyet yüksek olabilir
+                dailyTruckFixedCost: 5860, // Daha büyük tır için maliyet yüksek olabilir
                 averageSpeed: 70, // Daha yavaş olabilir
                 truckTonnageCapacity: 26,
                 fuelConsumption: 40, // Daha fazla yakar
                 returnTripEmptyFuelConsumption: 32
             },
             'mediumTruck': {
-                dailyTruckFixedCost: 4000,
-                averageSpeed: 80,
+                dailyTruckFixedCost: 6500,
+                averageSpeed: 65,
                 truckTonnageCapacity: 10,
-                fuelConsumption: 28,
+                fuelConsumption: 34,
                 returnTripEmptyFuelConsumption: 22
             },
             'lightTruck': {
-                dailyTruckFixedCost: 2500,
-                averageSpeed: 90,
+                dailyTruckFixedCost: 7500,
+                averageSpeed: 70,
                 truckTonnageCapacity: 5,
-                fuelConsumption: 18,
+                fuelConsumption: 28,
                 returnTripEmptyFuelConsumption: 14
             }
         };
