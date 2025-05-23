@@ -16,6 +16,7 @@
             --light-text: #666;
             --shadow-light: rgba(0, 0, 0, 0.1);
             --shadow-medium: rgba(0, 0, 0, 0.15);
+            --border-color: #e0e0e0;
         }
 
         body {
@@ -25,33 +26,32 @@
             background-color: var(--light-grey);
             color: var(--dark-text);
             display: flex;
-            flex-direction: column; /* Sayfa içeriğini dikeyde sıralar */
-            justify-content: flex-start; /* İçeriği yukarıdan başlatır */
-            align-items: center; /* Yatayda ortalar */
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
-            padding: 0; /* body'nin kendi padding'ini kaldırdık */
+            padding: 0;
         }
 
-        .container-wrapper { /* Tüm sayfa içeriğini saran yeni bir kapsayıcı */
+        .container-wrapper {
             max-width: 960px;
             width: 100%;
-            margin: 20px auto; /* Üstten ve alttan boşluk, yatayda ortala */
-            box-shadow: 0 10px 30px var(--shadow-light); /* Hafif gölge */
+            margin: 20px auto;
+            box-shadow: 0 10px 30px var(--shadow-light);
             border-radius: 12px;
-            overflow: hidden; /* İçerik taşmasını engeller, yuvarlak köşeler için */
-            background-color: #ffffff; /* Arka plan rengi */
+            overflow: hidden;
+            background-color: #ffffff;
         }
 
         /* Hero Section */
         .hero-section {
             background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
             color: white;
-            padding: 60px 0; /* Dikey boşluğu azalttık, logo için yer açtık */
+            padding: 60px 0;
             text-align: center;
             position: relative;
             overflow: hidden;
-            /* border-radius: 12px 12px 0 0;  Artık container-wrapper'da var */
         }
 
         .hero-section::before {
@@ -69,28 +69,26 @@
         .hero-content {
             position: relative;
             z-index: 2;
-            padding: 0 20px; /* İçerik için yatay boşluk */
+            padding: 0 20px;
         }
 
         /* Logo Stili */
         .site-logo {
-            max-width: 250px; /* Maksimum genişlik, daha büyük */
-            height: auto; /* Orantılı yükseklik */
-            margin-bottom: 25px; /* Başlıkla arasında boşluk */
-            display: block; /* Ortalamak için */
+            max-width: 250px;
+            height: auto;
+            margin-bottom: 25px;
+            display: block;
             margin-left: auto;
             margin-right: auto;
-            border-radius: 50%; /* LOGO YUVARLAKLIĞI İÇİN EKLENDİ */
-            object-fit: cover; /* RESMİN ALANA DÜZGÜN SIĞMASI İÇİN EKLENDİ */
-            /* Eğer logonuz yuvarlak olduktan sonra kesik görünüyorsa, aşağıdaki satırı da ekleyebilirsiniz */
-            /* object-position: center; */
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         /* Başlık Stili */
         .hero-section h1 {
             font-family: 'Montserrat', sans-serif;
             font-size: 3.8em;
-            margin-top: 0; /* Logo üstte olduğu için üst boşluğu kaldırdık */
+            margin-top: 0;
             margin-bottom: 20px;
             font-weight: 700;
             line-height: 1.1;
@@ -135,14 +133,17 @@
             box-shadow: 0 5px 10px rgba(40, 167, 69, 0.3);
         }
 
-        /* Features Section */
-        .features-section {
-            padding: 60px 0;
-            background-color: white; /* Arka plan rengi, container-wrapper içinde olacak */
+        .hero-button i {
+            margin-right: 10px;
+        }
+
+        /* General Section Styling */
+        .section-padding {
+            padding: 60px 20px;
             text-align: center;
         }
 
-        .features-section h2 {
+        .section-heading {
             font-family: 'Montserrat', sans-serif;
             font-size: 2.5em;
             color: var(--dark-blue);
@@ -152,12 +153,16 @@
             display: inline-block;
         }
 
+        /* Features Section */
+        .features-section {
+            background-color: white;
+        }
+
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             margin-top: 40px;
-            padding: 0 20px; /* Grid için yatay boşluk */
         }
 
         .feature-item {
@@ -186,7 +191,15 @@
             justify-content: center;
             align-items: center;
             margin-left: 0;
+            transition: transform 0.3s ease, background-color 0.3s ease; /* İkon animasyonu */
         }
+
+        .feature-item:hover .icon-box {
+            transform: scale(1.1); /* İkonu hafifçe büyüt */
+            background-color: var(--primary-blue); /* Arka plan rengini değiştir */
+            color: white; /* İkon rengini beyaz yap */
+        }
+
 
         .feature-item h3 {
             font-size: 1.5em;
@@ -203,20 +216,139 @@
             text-align: left;
         }
 
-        hr {
-            border: none;
-            height: 1px;
-            background-color: var(--border-color);
-            margin: 60px 0;
+        /* How It Works Section */
+        .how-it-works-section {
+            background-color: var(--light-grey);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step-item {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary-blue);
+            background-color: #e6f2fa;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: -60px auto 20px auto; /* Yukarı taşımak için negatif margin */
+            border: 5px solid white;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .step-item h3 {
+            font-size: 1.4em;
+            color: var(--dark-blue);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .step-item p {
+            font-size: 0.95em;
+            color: var(--light-text);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-item {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            font-style: italic;
+        }
+
+        .testimonial-item p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: white;
+            line-height: 1.8;
+        }
+
+        .testimonial-item .author {
+            font-weight: 600;
+            font-style: normal;
+            font-size: 1.05em;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: white;
+            padding-bottom: 80px; /* Alttan daha fazla boşluk */
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 500px;
+            margin: 40px auto 0 auto;
+            text-align: left;
+        }
+
+        .contact-info div {
+            display: flex;
+            align-items: center;
+            font-size: 1.1em;
+            color: var(--dark-text);
+        }
+
+        .contact-info div i {
+            font-size: 1.5em;
+            color: var(--primary-blue);
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .contact-info a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--dark-blue);
         }
 
         /* Responsive Ayarlar */
         @media (max-width: 768px) {
             .hero-section {
-                padding: 40px 0; /* Küçük ekranlarda dikey boşluğu daha da azalt */
+                padding: 40px 0;
             }
             .site-logo {
-                max-width: 180px; /* Küçük ekranlarda logo boyutunu küçült */
+                max-width: 180px;
                 margin-bottom: 20px;
             }
             .hero-section h1 {
@@ -229,8 +361,20 @@
                 font-size: 1.2em;
                 padding: 15px 35px;
             }
-            .features-section h2 {
+            .section-heading {
                 font-size: 2em;
+            }
+            .feature-grid, .steps-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            .feature-item, .step-item, .testimonial-item {
+                padding: 25px;
+            }
+            .step-number {
+                margin-top: -40px; /* Küçük ekranlarda da üste taşı */
+            }
+            .contact-info {
+                padding: 0 20px; /* Mobil görünümde yan boşluk */
             }
         }
 
@@ -252,14 +396,11 @@
                 font-size: 1em;
                 padding: 12px 25px;
             }
-            .features-section h2 {
+            .section-heading {
                 font-size: 1.8em;
             }
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-            .feature-item {
-                padding: 25px;
+            .section-padding {
+                padding: 40px 15px;
             }
         }
     </style>
@@ -269,44 +410,105 @@
         <div class="hero-section">
             <div class="hero-content">
                 <img src="img/Logo.jpeg" alt="Nakcep Logosu" class="site-logo">
-                <h1>Nakliye Fiyat Hesaplama Sistemi</h1>
-                <p><strong>Yükleme ve İndirme Noktalarını Girin, Fiyatı Anında Görün!</strong> İşletmenizin veya kişisel nakliye ihtiyaçlarınızın maliyetini hızlı, doğru ve kolayca hesaplayın.</p>
-                <a href="hesaplama.html" class="hero-button">Hesaplamaya Başla</a>
+                <h1>Nakliye Maliyetlerinizi Anında Hesaplayın!</h1>
+                <p><strong>Yükleme ve İndirme Noktalarını Girin, Net Fiyatı Hızlıca Öğrenin.</strong> İşletmenizin veya kişisel nakliye ihtiyaçlarınızın maliyetini en doğru ve kolay yoldan hesaplayın, zamandan ve bütçenizden tasarruf edin.</p>
+                <a href="hesaplama.html" class="hero-button"><i class="fas fa-truck"></i> Hesaplamaya Başla</a>
             </div>
         </div>
 
-        <div class="features-section">
+        <div class="features-section section-padding">
             <div class="container">
-                <h2>✨ Sistemimizin Temel Avantajları</h2>
+                <h2 class="section-heading">✨ Sistemimizin Temel Avantajları</h2>
                 <div class="feature-grid">
                     <div class="feature-item">
                         <div class="icon-box"><i class="fas fa-tachometer-alt"></i></div>
-                        <h3>Hızlı ve Otomatik Hesaplama</h3>
-                        <p>Manuel hesaplamalarla zaman kaybetmeyin. Sistemimiz mesafeyi algılayarak fiyatı saniyeler içinde sunar.</p>
+                        <h3>Hızlı ve Otomatik Fiyatlandırma</h3>
+                        <p>Manuel hesaplamalarla vedalaşın. Sistemimiz mesafeyi ve tüm detayları algılayarak fiyatı saniyeler içinde sunar, verimliliğinizi artırır.</p>
                     </div>
                     <div class="feature-item">
                         <div class="icon-box"><i class="fas fa-user-friends"></i></div>
-                        <h3>Kullanıcı Dostu Arayüz</h3>
-                        <p>Sade ve anlaşılır tasarımı sayesinde herkes kolayca kullanabilir. Teknik bilgiye ihtiyaç duymazsınız.</p>
+                        <h3>Sezgisel ve Kullanıcı Dostu Arayüz</h3>
+                        <p>Karmaşık menüler yok! Sade ve anlaşılır tasarımı sayesinde herkes kolayca kullanabilir, teknik bilgiye ihtiyaç duymazsınız.</p>
                     </div>
                     <div class="feature-item">
                         <div class="icon-box"><i class="fas fa-globe"></i></div>
-                        <h3>Web Tabanlı ve Erişilebilir</h3>
-                        <p>İnternet bağlantısı olan her cihazdan (bilgisayar, tablet, telefon) istediğiniz yerden ulaşım imkanı sunar.</p>
+                        <h3>Her An Her Yerden Erişilebilir</h3>
+                        <p>Tamamen web tabanlıdır. İnternet bağlantısı olan her cihazdan (bilgisayar, tablet, telefon) istediğiniz yerden ulaşım imkanı sunar.</p>
                     </div>
                     <div class="feature-item">
                         <div class="icon-box"><i class="fas fa-sun"></i></div>
                         <h3>Anlık Hava Durumu Tahmini</h3>
-                        <p>Rota üzerindeki tahmini hava koşullarını görüntüleyerek seyahatinizi daha iyi planlayın ve olası gecikmeleri önleyin.</p>
+                        <p>Rota üzerindeki tahmini hava koşullarını görüntüleyerek seyahatinizi daha iyi planlayın, olası gecikmeleri önleyin ve güvenliğinizi artırın.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon-box"><i class="fas fa-database"></i></div>
+                        <h3>Doğru ve Güvenilir Veri</h3>
+                        <p>Hesaplamalarımız güncel piyasa verileri ve kapsamlı algoritmalarla desteklenir. Daima en doğru ve güvenilir fiyatlandırmayı sunar.</p>
                     </div>
                     <div class="feature-item">
                         <div class="icon-box"><i class="fas fa-cogs"></i></div>
                         <h3>Sürekli Gelişim ve Yeni Özellikler</h3>
-                        <p>Sistemimiz, kullanıcı geri bildirimleri ve teknolojik yenilikler doğrultusunda sürekli olarak geliştirilmekte ve yeni özellikler eklenmektedir.</p>
+                        <p>Kullanıcı geri bildirimleri ve teknolojik yenilikler doğrultusunda sistemimiz sürekli olarak geliştirilmekte ve yeni özellikler eklenmektedir.</p>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="how-it-works-section section-padding">
+            <div class="container">
+                <h2 class="section-heading">🚀 Nakliye Maliyetinizi 3 Basit Adımda Hesaplayın</h2>
+                <div class="steps-grid">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <h3>Yükleme ve İndirme Girin</h3>
+                        <p>Başlangıç ve varış noktalarınızı harita üzerinden kolayca seçin veya adresleri yazın.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <h3>Detayları Belirtin</h3>
+                        <p>Yükün tonajı, yakıt tipi gibi gerekli bilgileri girin. İhtiyaç halinde köprü ve geçişleri ekleyin.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <h3>Anında Fiyatı Görün</h3>
+                        <p>Sistemimiz tüm verileri analiz ederek size en uygun ve güncel nakliye fiyatını anında sunar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonials-section section-padding">
+            <div class="container">
+                <h2 class="section-heading">💬 Müşterilerimiz Ne Diyor?</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-item">
+                        <p>"Nakcep sayesinde her seferinde doğru fiyatı hızlıca alabiliyorum. Özellikle hava durumu tahmini özelliği çok işime yarıyor!"</p>
+                        <div class="author">- Ayşe Yılmaz, Lojistik Koordinatörü</div>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"Kullanımı o kadar kolay ki! Tek tuşla tüm nakliye maliyetimi görüyorum. Gerçekten sektördeki en iyi araç."</p>
+                        <div class="author">- Mehmet Demir, Nakliye Firması Sahibi</div>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"Yakıt ve geçiş ücretleri gibi detayları otomatik hesaplaması büyük bir zaman tasarrufu sağlıyor. Kesinlikle tavsiye ederim."</p>
+                        <div class="author">- Zeynep Kaya, Serbest Çalışan Nakliyeci</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section section-padding">
+            <div class="container">
+                <h2 class="section-heading">📧 Bize Ulaşın</h2>
+                <p>Herhangi bir sorunuz veya geri bildiriminiz mi var? Bizimle iletişime geçmekten çekinmeyin.</p>
+                <div class="contact-info">
+                    <div><i class="fas fa-envelope"></i> Email: <a href="mailto:ariftug055@gmail.com">ariftug055@gmail.com</a></div>
+                    <div><i class="fas fa-phone"></i> Telefon: <a href="tel:+905061207615">+90506 120 7615</a></div>
+                    <div><i class="fas fa-map-marker-alt"></i> Adres: ANKARA, Türkiye</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
