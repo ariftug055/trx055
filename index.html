@@ -301,6 +301,45 @@
             opacity: 0.9;
         }
 
+        /* About Us / Project Owner Section */
+        .about-us-section {
+            background-color: var(--light-grey);
+        }
+
+        .about-us-content {
+            max-width: 700px;
+            margin: 40px auto 0 auto;
+            text-align: left;
+            padding: 0 20px; /* İçerik için yatay boşluk */
+        }
+
+        .about-us-content .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 25px;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px var(--shadow-medium);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-us-content p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+        }
+
+        .about-us-content p.signature {
+            font-weight: 600;
+            margin-top: 30px;
+            text-align: right;
+            font-size: 1.2em;
+            color: var(--dark-blue);
+        }
+
         /* Contact Section */
         .contact-section {
             background-color: white;
@@ -371,6 +410,9 @@
             }
             .step-number {
                 margin-top: -40px;
+            }
+            .about-us-content {
+                padding: 0 20px;
             }
             .contact-info {
                 padding: 0 20px;
@@ -445,7 +487,8 @@
                         <p>Rota üzerindeki tahmini hava koşullarını görüntüleyerek seyahatinizi daha iyi planlayın, olası gecikmeleri önleyin ve güvenliğinizi artırın.</p>
                     </div>
                     <div class="feature-item">
-                        <div class="icon-box"><i class="fas fa-chart-line"></i></div> <h3>Çoklu Sorgu ve Büyük Ölçekli Analiz</h3>
+                        <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+                        <h3>Çoklu Sorgu ve Büyük Ölçekli Analiz</h3>
                         <p>Tek seferde birden fazla nakliye için fiyat alın. Yüksek tonajlı işleriniz için detaylı maliyet, ciro ve kar marjı hesaplamaları yapın.</p>
                     </div>
                     <div class="feature-item">
@@ -505,14 +548,27 @@
             </div>
         </div>
 
+        <div class="about-us-section section-padding">
+            <div class="container">
+                <h2 class="section-heading">🛠️ Deneyimle Şekillenen Bir Proje</h2>
+                <div class="about-us-content">
+                    <img src="img/arif.jpg" alt="Arif Can" class="profile-photo">
+                    <p>Nakliye Fiyat Hesaplama Sistemi, sektördeki <strong>15 yılı aşkın köklü deneyimin</strong> ve saha bilgilerinin birleşimiyle hayata geçirildi. Proje sorumlusu olarak, nakliye sektörünün dinamiklerini, karşılaşılan zorlukları ve teknolojiyle nasıl daha verimli hale getirilebileceğini yakından biliyorum.</p>
+                    <p>Bu platform, yıllar içinde edindiğim tecrübe, sektör profesyonelleriyle yapılan sayısız görüşme ve piyasanın gerçek ihtiyaçları göz önünde bulundurularak titizlikle tasarlandı. Amacımız, nakliye maliyetlerini şeffaf, doğru ve erişilebilir kılmak; hem bireysel kullanıcıların hem de büyük ölçekli işletmelerin operasyonel verimliliğini artırmaktır.</p>
+                    <p>Geliştirdiğimiz her özellik, siz değerli kullanıcılarımızın zaman ve paradan tasarruf etmesini sağlamak üzere kurgulanmıştır. Bu projenin arkasındaki vizyon, nakliye sektöründe dijital dönüşümü hızlandırmak ve geleceğin lojistik süreçlerine ışık tutmaktır. Güveniniz ve desteğinizle, bu yolculuğa devam ediyoruz.</p>
+                    <p class="signature">Saygılarımla,<br><strong>Arif Can</strong></p>
+                </div>
+            </div>
+        </div>
+
         <div class="contact-section section-padding">
             <div class="container">
                 <h2 class="section-heading">📧 Bize Ulaşın</h2>
-                <p>Herhangi bir sorunuz veya geri bildiriminiz mi var? Bizimle iletişime geçmekten çekinmeyin Birden fazla kokasyon ve finansal hesaplamalar için dosyanızı bize mail ile gönderin.</p>
+                <p>Herhangi bir sorunuz veya geri bildiriminiz mi var? Bizimle iletişime geçmekten çekinmeyin.</p>
                 <div class="contact-info">
-                    <div><i class="fas fa-envelope"></i> Email: <a href="mailto:info@nakcep.com">ariftug055@gmail..com</a></div>
-                    <div><i class="fas fa-phone"></i> Telefon: <a href="tel:+905XXYYYYZZZ">+90 506 120 7516</a></div>
-                    <div><i class="fas fa-map-marker-alt"></i> Adres: ANKARA/Türkiye</div>
+                    <div><i class="fas fa-envelope"></i> Email: <a href="mailto:info@nakcep.com">info@nakcep.com</a></div>
+                    <div><i class="fas fa-phone"></i> Telefon: <a href="tel:+905XXYYYYZZZ">+90 5XX YYY ZZ Z</a></div>
+                    <div><i class="fas fa-map-marker-alt"></i> Adres: Örnek Mah. Örnek Cad. No: 123, Örnek Şehir, Türkiye</div>
                 </div>
             </div>
         </div>
