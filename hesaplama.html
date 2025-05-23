@@ -162,6 +162,11 @@
             opacity: 1;
         }
 
+        input:disabled {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
+
         .waypoint-input {
             display: flex;
             align-items: center;
@@ -207,14 +212,14 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
-        #returnTripSection {
+        #returnTripSection, #weatherForecastSection {
             border: 1px dashed var(--color-border-dark);
             padding: var(--spacing-md);
             border-radius: var(--border-radius-sm);
             background-color: #fefefe;
             margin-top: var(--spacing-md);
         }
-        #returnTripSection label {
+        #returnTripSection label, #weatherForecastSection label {
             display: flex;
             align-items: center;
             margin-bottom: var(--spacing-sm);
@@ -222,7 +227,7 @@
             font-weight: 600;
             color: var(--color-text-dark);
         }
-        #returnTripSection input[type="checkbox"] {
+        #returnTripSection input[type="checkbox"], #weatherForecastSection input[type="checkbox"] {
             width: auto;
             margin-right: var(--spacing-sm);
             transform: scale(1.4);
@@ -495,6 +500,100 @@
         .driver-warnings li:last-child {
             margin-bottom: 0;
         }
+        
+        /* Optimize Edilmiş Rota Sırası Yeni Stiller */
+        #optimizedRouteOrder {
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: var(--color-background); /* Arka planı biraz farklı */
+            border-radius: var(--border-radius-sm);
+            padding: var(--spacing-sm);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        #optimizedRouteOrder ul {
+            list-style: none; /* Varsayılan list stilini kaldır */
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs); /* Liste öğeleri arasında boşluk */
+        }
+
+        #optimizedRouteOrder li {
+            display: flex;
+            align-items: center;
+            position: relative; /* Çizgi için */
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background-color: var(--color-card-background);
+            border: 1px solid var(--color-border-light);
+            border-radius: var(--border-radius-sm);
+            font-size: 1.1em;
+            font-weight: 500;
+            color: var(--color-text-dark);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #optimizedRouteOrder li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        #optimizedRouteOrder li .step-number {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 28px; /* Daire genişliği */
+            height: 28px; /* Daire yüksekliği */
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            border-radius: 50%; /* Daire şekli */
+            font-weight: 700;
+            font-size: 0.8em;
+            margin-right: var(--spacing-sm);
+            flex-shrink: 0; /* Küçülmesini engelle */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        #optimizedRouteOrder li:first-child .step-number {
+            background-color: var(--color-secondary); /* Başlangıç için farklı renk */
+        }
+
+        #optimizedRouteOrder li:last-child .step-number {
+            background-color: var(--color-accent); /* Bitiş için farklı renk */
+        }
+
+        #optimizedRouteOrder li .location-name {
+            flex-grow: 1; /* Konum adının kalan alanı doldurmasını sağla */
+            white-space: nowrap; /* Metni tek satırda tut */
+            overflow: hidden; /* Taşmayı gizle */
+            text-overflow: ellipsis; /* Taşma durumunda üç nokta göster */
+        }
+
+        #optimizedRouteOrder li .location-tag {
+            font-size: 0.85em;
+            color: var(--color-text-medium);
+            font-weight: 400;
+            margin-left: var(--spacing-xs);
+            padding: 2px 6px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        /* Liste öğeleri arasına çizgi ekleme */
+        #optimizedRouteOrder li:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 19px; /* Numara dairenin ortasına hizala */
+            bottom: -8px; /* Bir sonraki öğeye doğru düşey çizgi */
+            width: 2px;
+            height: var(--spacing-xs); /* Çizgi yüksekliği */
+            background-color: var(--color-border-dark);
+            z-index: -1; /* Arka planda kalmasını sağla */
+        }
 
         /* Duyarlı Tasarım */
         @media (max-width: 992px) {
@@ -555,6 +654,20 @@
             .weather-description {
                 font-size: 0.75em;
             }
+            /* Rota sırası için mobil uyum */
+            #optimizedRouteOrder li {
+                font-size: 1em;
+                padding: var(--spacing-xs);
+            }
+            #optimizedRouteOrder li .step-number {
+                width: 24px;
+                height: 24px;
+                font-size: 0.75em;
+                margin-right: var(--spacing-xs);
+            }
+            #optimizedRouteOrder li::after {
+                left: 17px;
+            }
         }
     </style>
 </head>
@@ -594,6 +707,17 @@
                         <div class="form-group">
                             <label for="loadingDate">Tahmini Yükleme Tarihi</label>
                             <input type="date" id="loadingDate" required>
+                        </div>
+                    </div>
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <label for="vehicleType">Araç Tipi Seçimi</label>
+                            <select id="vehicleType" required>
+                                <option value="custom">Özel (Manuel Giriş)</option>
+                                <option value="heavyTruck">Ağır Yük Tırı (26 Ton)</option>
+                                <option value="mediumTruck">Orta Boy Kamyon (10 Ton)</option>
+                                <option value="lightTruck">Hafif Kamyonet (5 Ton)</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-row">
@@ -678,6 +802,12 @@
                             <input type="number" id="returnTripEmptyFuelConsumption" value="28" min="0" step="0.01" required>
                         </div>
                     </div>
+                    <div id="weatherForecastSection" style="margin-top: var(--spacing-md); border: 1px dashed var(--color-border-dark); padding: var(--spacing-md); border-radius: var(--border-radius-sm); background-color: #fefefe;">
+                        <label>
+                            <input type="checkbox" id="includeWeatherForecast">
+                            Hava Durumu Tahmini Ekle
+                        </label>
+                    </div>
                 </div>
                 
                 <button type="submit">Maliyet ve Karı Hesapla</button>
@@ -690,6 +820,13 @@
     <div id="results" class="card">
         <h2>Hesaplama Sonuçları:</h2>
         <div class="result-item">
+            <strong>Optimize Edilmiş Rota Sırası:</strong>
+            <div id="optimizedRouteOrder">
+                <ul></ul>
+            </div>
+        </div>
+        <hr>
+        <div class="result-item">
             <strong>Rota Mesafesi (Gidiş):</strong> <span id="distance" class="result-value"></span>
         </div>
         <div class="result-item">
@@ -697,6 +834,12 @@
         </div>
         <div class="result-item">
             <strong>Molalar Dahil Tahmini Sürüş Süresi:</strong> <span id="calculatedTravelDurationWithBreaks" class="result-value"></span>
+        </div>
+        <div class="result-item">
+            <strong>Verilecek Tahmini Mola Sayısı:</strong> <span id="numberOfBreaks" class="result-value"></span>
+        </div>
+        <div class="result-item">
+            <strong>Toplam Mola Süresi:</strong> <span id="totalBreakDuration" class="result-value"></span>
         </div>
         <div class="result-item">
             <strong>Toplam Operasyon Süresi (Yükleme/İndirme Dahil):</strong> <span id="totalOperationDuration" class="result-value"></span>
@@ -800,6 +943,39 @@
             'overcast clouds': { speedFactor: 0.95, warning: null } // Örnek olarak eklendi
         };
 
+        // Araç Profilleri Tanımları
+        const vehicleProfiles = {
+            'custom': { // Manuel giriş için varsayılan boş veya mevcut değerleri temsil eder
+                dailyTruckFixedCost: 5900,
+                averageSpeed: 75,
+                truckTonnageCapacity: 26,
+                fuelConsumption: 36,
+                returnTripEmptyFuelConsumption: 28
+            },
+            'heavyTruck': {
+                dailyTruckFixedCost: 6500, // Daha büyük tır için maliyet yüksek olabilir
+                averageSpeed: 70, // Daha yavaş olabilir
+                truckTonnageCapacity: 26,
+                fuelConsumption: 40, // Daha fazla yakar
+                returnTripEmptyFuelConsumption: 32
+            },
+            'mediumTruck': {
+                dailyTruckFixedCost: 4000,
+                averageSpeed: 80,
+                truckTonnageCapacity: 10,
+                fuelConsumption: 28,
+                returnTripEmptyFuelConsumption: 22
+            },
+            'lightTruck': {
+                dailyTruckFixedCost: 2500,
+                averageSpeed: 90,
+                truckTonnageCapacity: 5,
+                fuelConsumption: 18,
+                returnTripEmptyFuelConsumption: 14
+            }
+        };
+
+
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 7,
@@ -808,10 +984,12 @@
             directionsService = new google.maps.DirectionsService();
             directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
             geocoder = new google.maps.Geocoder(); // Geocoder'ı başlattık
-            toggleReturnFuelInput(); 
+            toggleReturnFuelInput();
             initializeAutocomplete(); // Adres tamamlama başlat
             setTodayAsMinDate(); // Tarih inputu için minimum tarihi ayarla
             setupTollBridgeSelection(); // Köprü seçimini ayarla
+            setupVehicleTypeSelection(); // Araç tipi seçimini ayarla
+            setupWeatherForecastToggle(); // Hava durumu tahminini aç/kapa
         }
 
         function setTodayAsMinDate() {
@@ -891,6 +1069,28 @@
             }
         }
 
+        function setupWeatherForecastToggle() {
+            const includeWeatherForecastCheckbox = document.getElementById('includeWeatherForecast');
+            const weatherResultsDiv = document.getElementById('weather-results');
+
+            // İlk başta hava durumu sonuçlarını gizle
+            weatherResultsDiv.classList.remove('visible');
+
+            includeWeatherForecastCheckbox.addEventListener('change', function() {
+                if (!this.checked) {
+                    // Checkbox işaretli değilse hava durumu sonuçlarını gizle
+                    weatherResultsDiv.classList.remove('visible');
+                    // Ayrıca, hava durumu ile ilgili uyarı ve mesajları da temizleyelim
+                    document.getElementById('allWeatherLocationsContainer').innerHTML = '';
+                    document.getElementById('weatherInfoMessage').textContent = '';
+                    document.getElementById('warningList').innerHTML = '';
+                    document.getElementById('driverWarnings').style.display = 'none';
+                }
+                // İşaretli olduğunda otomatik olarak gösterilmeyecek, hesaplama tetiklendiğinde gösterilecek.
+                // Bu kısım boş kalacak çünkü görünürlük hesaplama anında ayarlanacak.
+            });
+        }
+
         function setupTollBridgeSelection() {
             const tollBridgeSelect = document.getElementById('tollBridgeSelect');
             const tollFeeAdjustableGroup = document.getElementById('tollFeeAdjustableGroup');
@@ -925,6 +1125,51 @@
 
             tollBridgeSelect.addEventListener('change', updateTollFeeInput);
             updateTollFeeInput(); 
+        }
+
+        function setupVehicleTypeSelection() {
+            const vehicleTypeSelect = document.getElementById('vehicleType');
+            const dailyTruckFixedCostInput = document.getElementById('dailyTruckFixedCostInput');
+            const averageSpeedInput = document.getElementById('averageSpeed');
+            const truckTonnageInput = document.getElementById('truckTonnageInput');
+            const fuelConsumptionInput = document.getElementById('fuelConsumptionInput');
+            const returnTripEmptyFuelConsumptionInput = document.getElementById('returnTripEmptyFuelConsumption');
+
+            vehicleTypeSelect.addEventListener('change', function() {
+                const selectedType = this.value;
+                const profile = vehicleProfiles[selectedType];
+
+                if (selectedType === 'custom') {
+                    // Özel seçildiğinde tüm alanları düzenlenebilir yap
+                    dailyTruckFixedCostInput.disabled = false;
+                    averageSpeedInput.disabled = false;
+                    truckTonnageInput.disabled = false;
+                    fuelConsumptionInput.disabled = false;
+                    returnTripEmptyFuelConsumptionInput.disabled = false;
+                    // Değerleri temizle veya mevcut değerleri koru (tercihe bağlı)
+                    // dailyTruckFixedCostInput.value = '';
+                    // averageSpeedInput.value = '';
+                    // truckTonnageInput.value = '';
+                    // fuelConsumptionInput.value = '';
+                    // returnTripEmptyFuelConsumptionInput.value = '';
+                } else {
+                    // Profil seçildiğinde alanları doldur ve devre dışı bırak
+                    dailyTruckFixedCostInput.value = profile.dailyTruckFixedCost;
+                    averageSpeedInput.value = profile.averageSpeed;
+                    truckTonnageInput.value = profile.truckTonnageCapacity;
+                    fuelConsumptionInput.value = profile.fuelConsumption;
+                    returnTripEmptyFuelConsumptionInput.value = profile.returnTripEmptyFuelConsumption;
+
+                    dailyTruckFixedCostInput.disabled = true;
+                    averageSpeedInput.disabled = true;
+                    truckTonnageInput.disabled = true;
+                    fuelConsumptionInput.disabled = true;
+                    returnTripEmptyFuelConsumptionInput.disabled = true;
+                }
+            });
+
+            // Sayfa yüklendiğinde varsayılan profili uygula (genellikle "custom" veya ilk seçenek)
+            vehicleTypeSelect.dispatchEvent(new Event('change'));
         }
 
         function formatCurrency(amount) {
@@ -1059,6 +1304,8 @@
             if (includeReturnTrip) {
                 returnTripEmptyFuelConsumption = parseFloat(document.getElementById('returnTripEmptyFuelConsumption').value) || 0;
             }
+            const includeWeatherForecast = document.getElementById('includeWeatherForecast').checked;
+
 
             // --- Giriş Doğrulamaları ---
             if (!origin || !destination || !loadingDate) { 
@@ -1084,10 +1331,11 @@
 
 
             const waypoints = [];
+            // Dynamik olarak eklenen waypoint inputlarını topla
             document.querySelectorAll('.waypoint-input-field').forEach(input => {
                 const waypointValue = input.value.trim();
                 if (waypointValue) {
-                    waypoints.push({ location: waypointValue });
+                    waypoints.push({ location: waypointValue, stopover: true });
                 }
             });
 
@@ -1095,24 +1343,37 @@
                 origin: origin,
                 destination: destination,
                 waypoints: waypoints,
+                optimizeWaypoints: true, 
                 travelMode: google.maps.TravelMode.DRIVING
             };
 
             const resultsElement = document.getElementById('results');
             const weatherResultsDiv = document.getElementById('weather-results');
-            const allWeatherLocationsContainer = document.getElementById('allWeatherLocationsContainer'); // Yeni konteyner
+            const allWeatherLocationsContainer = document.getElementById('allWeatherLocationsContainer'); 
             const weatherInfoMessage = document.getElementById('weatherInfoMessage');
             const driverWarningsDiv = document.getElementById('driverWarnings');
             const warningList = document.getElementById('warningList');
+            const optimizedRouteOrderList = document.getElementById('optimizedRouteOrder').querySelector('ul');
 
 
             // Sonuçları ve hava durumu bilgilerini gizle ve yükleniyor mesajını göster
             resultsElement.classList.remove('visible');
-            weatherResultsDiv.classList.remove('visible');
-            allWeatherLocationsContainer.innerHTML = '<div class="weather-loading">Hava durumu verileri yükleniyor...</div>';
-            weatherInfoMessage.textContent = ''; 
-            warningList.innerHTML = ''; // Uyarıları temizle
-            driverWarningsDiv.style.display = 'none'; // Uyarı kutusunu gizle
+            // Hava durumu tahmini seçili değilse, ilgili bölümleri tamamen temizle ve gizle
+            if (!includeWeatherForecast) {
+                weatherResultsDiv.classList.remove('visible');
+                allWeatherLocationsContainer.innerHTML = ''; // İçeriği tamamen temizle
+                weatherInfoMessage.textContent = '';
+                warningList.innerHTML = '';
+                driverWarningsDiv.style.display = 'none';
+            } else {
+                // Hava durumu seçiliyse, yükleniyor mesajını göster
+                weatherResultsDiv.classList.remove('visible'); // Başlangıçta gizle
+                allWeatherLocationsContainer.innerHTML = '<div class="weather-loading">Hava durumu verileri yükleniyor...</div>';
+                weatherInfoMessage.textContent = '';
+                warningList.innerHTML = '';
+                driverWarningsDiv.style.display = 'none';
+            }
+            optimizedRouteOrderList.innerHTML = ''; // Rota sırasını temizle
 
 
             directionsService.route(request, async function(result, status) {
@@ -1125,19 +1386,53 @@
                     
                     // Rota üzerindeki tüm önemli noktaların (origin, waypoints, destination) isim ve LatLng'lerini topla
                     const locationsToQuery = [];
-                    locationsToQuery.push({ name: origin, latLng: route.legs[0].start_location }); // Başlangıç noktası
+                    
+                    // Rota sırasını HTML'e şık bir şekilde yazdır
+                    optimizedRouteOrderList.innerHTML = ''; // Önceki içeriği temizle
+                    
+                    let currentStep = 1;
+                    optimizedRouteOrderList.innerHTML += `
+                        <li>
+                            <span class="step-number">${currentStep++}</span>
+                            <span class="location-name">${origin}</span>
+                            <span class="location-tag">Başlangıç</span>
+                        </li>
+                    `;
+                    locationsToQuery.push({ name: origin, latLng: route.legs[0].start_location });
 
-                    route.legs.forEach((leg, index) => {
+                    // Optimize edilmiş ara durakları ekle
+                    const orderedWaypoints = route.waypoint_order.map(index => waypoints[index].location);
+                    orderedWaypoints.forEach((waypoint, index) => {
+                         optimizedRouteOrderList.innerHTML += `
+                            <li>
+                                <span class="step-number">${currentStep++}</span>
+                                <span class="location-name">${waypoint}</span>
+                                <span class="location-tag">Ara Durak</span>
+                            </li>
+                        `;
+                        // Hava durumu için ara durakları da ekle
+                        // Google Directions API'nin döndürdüğü `leg.end_location` doğru konumları verecektir.
+                        // route.legs[index] aslında `origin`'den ilk waypoint'e, ilk waypoint'ten ikinciye vb. bacakları temsil eder.
+                        // Dolayısıyla leg.end_location, o bacağın bitiş noktasıdır.
+                        locationsToQuery.push({ name: waypoint, latLng: route.legs[index].end_location });
+                    });
+                    
+                    optimizedRouteOrderList.innerHTML += `
+                        <li>
+                            <span class="step-number">${currentStep++}</span>
+                            <span class="location-name">${destination}</span>
+                            <span class="location-tag">Bitiş</span>
+                        </li>
+                    `;
+                    // Son durağın LatLng'sini ekle
+                    locationsToQuery.push({ name: destination, latLng: route.legs[route.legs.length - 1].end_location });
+
+
+                    route.legs.forEach((leg) => {
                         totalDistanceInMeters += leg.distance.value;
                         googleTotalTravelDurationInSeconds += leg.duration.value;
-
-                        // Ara durakları ekle (eğer varsa)
-                        if (index < route.legs.length - 1) { // Son bacak değilse, bir sonraki bacağın başlangıcı ara duraktır
-                            const waypointName = waypoints[index] ? waypoints[index].location : `Ara Durak ${index + 1}`;
-                            locationsToQuery.push({ name: waypointName, latLng: leg.end_location });
-                        }
                     });
-                    locationsToQuery.push({ name: destination, latLng: route.legs[route.legs.length - 1].end_location }); // Bitiş noktası
+                    
 
                     const distanceInKm = totalDistanceInMeters / 1000;
                     
@@ -1146,59 +1441,68 @@
                     let allDriverWarnings = [];
                     let overallMinSpeedFactor = 1.0;
                     let hasForecastError = false;
-
-                    // Her bir konum için hava durumu verilerini paralel olarak çek
-                    const weatherPromises = locationsToQuery.map(loc => 
-                        fetchWeatherForLocation(loc.latLng.lat(), loc.latLng.lng(), loc.name, loadingDate, googleTotalTravelDurationInSeconds)
-                    );
-                    const weatherResults = await Promise.all(weatherPromises);
-
-                    weatherResults.forEach(res => {
-                        allWeatherHtml += `<div class="weather-location-container">${res.cardsHtml}</div>`;
-                        allDriverWarnings = allDriverWarnings.concat(res.warnings);
-                        if (!res.isForecastAvailable) {
-                            hasForecastError = true;
-                        }
-
-                        // Bu konumdaki tüm tahminler arasında en düşük speedFactor'ı bul ve overallMinSpeedFactor'ı güncelle
-                        if (res.allForecasts && res.allForecasts.length > 0) {
-                            res.allForecasts.forEach(forecastItem => {
-                                const description = forecastItem.weather[0].description.toLowerCase();
-                                const impact = WEATHER_IMPACTS[description] || { speedFactor: 1.0, warning: null };
-                                overallMinSpeedFactor = Math.min(overallMinSpeedFactor, impact.speedFactor);
-                            });
-                        }
-                    });
-
-                    allWeatherLocationsContainer.innerHTML = allWeatherHtml;
-
                     let adjustedAverageSpeed = initialAverageSpeed;
                     let speedAdjustmentNote = `Ortalama Sürüş Hızı: ${formatNumber(initialAverageSpeed, 0)} km/sa`;
 
-                    if (overallMinSpeedFactor < 1.0) {
-                        adjustedAverageSpeed = initialAverageSpeed * overallMinSpeedFactor;
-                        speedAdjustmentNote = `Hava şartları nedeniyle hızınız ${formatNumber(initialAverageSpeed, 0)} km/sa'ten ${formatNumber(adjustedAverageSpeed, 0)} km/sa'e düşürüldü.`;
-                        weatherInfoMessage.textContent = `Rota üzerindeki kötü hava koşulları nedeniyle tahmini sürüş hızınız %${formatNumber((1 - overallMinSpeedFactor) * 100, 0)} azaltıldı.`;
-                    } else if (hasForecastError) {
-                         weatherInfoMessage.textContent = `Bazı konumlar için hava durumu tahmini alınamadı veya sınırlıdır. Hız ayarı buna göre yapılamamıştır.`;
-                    }
-                    else {
-                        weatherInfoMessage.textContent = `Rota üzerinde önemli hava durumu engeli beklenmiyor.`;
-                    }
-                    
-                    // Sürücü uyarılarını göster
-                    if (allDriverWarnings.length > 0) {
-                        allDriverWarnings.forEach(warning => {
-                            const li = document.createElement('li');
-                            li.innerHTML = warning;
-                            warningList.appendChild(li);
+
+                    if (includeWeatherForecast) { // YENİ: Hava durumu tahmini seçiliyse sorgula
+                        // Her bir konum için hava durumu verilerini paralel olarak çek
+                        const weatherPromises = locationsToQuery.map(loc =>
+                            fetchWeatherForLocation(loc.latLng.lat(), loc.latLng.lng(), loc.name, loadingDate, googleTotalTravelDurationInSeconds)
+                        );
+                        const weatherResults = await Promise.all(weatherPromises);
+
+                        weatherResults.forEach(res => {
+                            allWeatherHtml += `<div class="weather-location-container">${res.cardsHtml}</div>`;
+                            allDriverWarnings = allDriverWarnings.concat(res.warnings);
+                            if (!res.isForecastAvailable) {
+                                hasForecastError = true;
+                            }
+
+                            // Bu konumdaki tüm tahminler arasında en düşük speedFactor'ı bul ve overallMinSpeedFactor'ı güncelle
+                            if (res.allForecasts && res.allForecasts.length > 0) {
+                                res.allForecasts.forEach(forecastItem => {
+                                    const description = forecastItem.weather[0].description.toLowerCase();
+                                    const impact = WEATHER_IMPACTS[description] || { speedFactor: 1.0, warning: null };
+                                    overallMinSpeedFactor = Math.min(overallMinSpeedFactor, impact.speedFactor);
+                                });
+                            }
                         });
-                        driverWarningsDiv.style.display = 'block';
+
+                        allWeatherLocationsContainer.innerHTML = allWeatherHtml;
+
+                        if (overallMinSpeedFactor < 1.0) {
+                            adjustedAverageSpeed = initialAverageSpeed * overallMinSpeedFactor;
+                            speedAdjustmentNote = `Hava şartları nedeniyle hızınız ${formatNumber(initialAverageSpeed, 0)} km/sa'ten ${formatNumber(adjustedAverageSpeed, 0)} km/sa'e düşürüldü.`;
+                            weatherInfoMessage.textContent = `Rota üzerindeki kötü hava koşulları nedeniyle tahmini sürüş hızınız %${formatNumber((1 - overallMinSpeedFactor) * 100, 0)} azaltıldı.`;
+                        } else if (hasForecastError) {
+                             weatherInfoMessage.textContent = `Bazı konumlar için hava durumu tahmini alınamadı veya sınırlıdır. Hız ayarı buna göre yapılamamıştır.`;
+                        }
+                        else {
+                            weatherInfoMessage.textContent = `Rota üzerinde önemli hava durumu engeli beklenmiyor.`;
+                        }
+
+                        // Sürücü uyarılarını göster
+                        if (allDriverWarnings.length > 0) {
+                            allDriverWarnings.forEach(warning => {
+                                const li = document.createElement('li');
+                                li.innerHTML = warning;
+                                warningList.appendChild(li);
+                            });
+                            driverWarningsDiv.style.display = 'block';
+                        } else {
+                            driverWarningsDiv.style.display = 'none';
+                        }
+
+                        weatherResultsDiv.classList.add('visible'); // Hava durumu seçiliyse sonuçları göster
                     } else {
+                        // Hava durumu tahmini seçili değilse, varsayılan değerleri kullan ve alanı gizle
+                        allWeatherLocationsContainer.innerHTML = '';
+                        weatherInfoMessage.textContent = 'Hava durumu tahmini devre dışı bırakıldı.';
+                        warningList.innerHTML = '';
                         driverWarningsDiv.style.display = 'none';
+                        weatherResultsDiv.classList.remove('visible'); // Sonuç alanını gizle
                     }
-                    
-                    weatherResultsDiv.classList.add('visible');
                     // --- Hava Durumu Entegrasyonu Bitti ---
 
                     const calculatedTravelDurationInHours = distanceInKm / adjustedAverageSpeed; 
@@ -1215,6 +1519,10 @@
                     document.getElementById('calculatedTravelDurationWithBreaks').textContent = `${formatNumber(calculatedTravelDurationWithBreaks, 1)} saat`;
                     document.getElementById('totalOperationDuration').textContent = `${formatNumber(totalOperationDurationInHours, 1)} saat`;
                     document.getElementById('adjustedAverageSpeedOutput').textContent = speedAdjustmentNote; 
+                    
+                    // YENİ: Mola Detayları
+                    document.getElementById('numberOfBreaks').textContent = `${formatNumber(numberOfDrivingIntervals, 0)} mola`;
+                    document.getElementById('totalBreakDuration').textContent = `${formatNumber(totalBreakDurationHours, 1)} saat`;
 
 
                     const fuelNeededPerKm = fuelConsumptionPer100Km / 100;
@@ -1233,7 +1541,8 @@
                             const returnTotalFuelConsumed = distanceInKm * returnFuelNeededPerKm;
                             returnTripFuelCost = returnTotalFuelConsumed * dieselPricePerLiter;
                         }
-                        const returnTripHourlyCost = calculatedTravelDurationInHours * HOURLY_TRUCK_FIXED_COST; 
+                        // Dönüş yolunda da araç sabit maliyetinin olması gerekir
+                        const returnTripHourlyCost = (distanceInKm / adjustedAverageSpeed) * HOURLY_TRUCK_FIXED_COST; 
                         totalReturnTripCost = returnTripFuelCost + returnTripHourlyCost;
                     }
                     document.getElementById('returnTripCost').textContent = formatCurrency(totalReturnTripCost);
@@ -1249,18 +1558,19 @@
                     document.getElementById('tollFeeOutput').textContent = formatCurrency(tollFee);
                     document.getElementById('otherDailyFixedCostOutput').textContent = formatCurrency(additionalDailyFixedCost);
 
+                    // totalTruckCost'u burada tanımlıyoruz. Bu tüm maliyetlerin toplamı olabilir.
+                    const totalTruckCost = totalFuelCost + calculatedHourlyTruckFixedCost + totalReturnTripCost + tollFee + additionalDailyFixedCost; 
+                    
                     const finalPriceWithProfit = priceBeforeExtraCosts + tollFee + additionalDailyFixedCost;
                     document.getElementById('finalPriceWithProfit').textContent = formatCurrency(finalPriceWithProfit);
-
-                    const totalTruckCost = baseOperationalCost + tollFee + additionalDailyFixedCost;
-                    document.getElementById('totalCost').textContent = formatCurrency(totalTruckCost);
+                    document.getElementById('totalCost').textContent = formatCurrency(totalTruckCost); 
 
                     let pricePerTon = 0;
                     if (truckTonnageCapacity > 0) {
                         pricePerTon = finalPriceWithProfit / truckTonnageCapacity;
                     }
                     document.getElementById('pricePerTon').textContent = formatCurrency(pricePerTon) + ' / Ton';
-                    
+
                     resultsElement.classList.add('visible');
                     resultsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
@@ -1279,14 +1589,28 @@
                     document.getElementById('totalCost').textContent = '';
                     document.getElementById('finalPriceWithProfit').textContent = '';
                     document.getElementById('pricePerTon').textContent = '';
+                    // Yeni eklenen alanları da sıfırla
+                    document.getElementById('numberOfBreaks').textContent = '';
+                    document.getElementById('totalBreakDuration').textContent = '';
+
+
                     resultsElement.classList.remove('visible');
 
                     // Hava durumu sonuçlarını da sıfırla ve gizle
-                    document.getElementById('allWeatherLocationsContainer').innerHTML = '<div class="weather-loading">Hata: Hava durumu verileri yüklenemedi.</div>';
-                    weatherResultsDiv.classList.remove('visible');
-                    weatherInfoMessage.textContent = ''; 
-                    warningList.innerHTML = '';
-                    driverWarningsDiv.style.display = 'none';
+                    if (includeWeatherForecast) { // Eğer hava durumu sorgusu seçiliyse ve hata olduysa
+                        document.getElementById('allWeatherLocationsContainer').innerHTML = '<div class="weather-loading">Hata: Hava durumu verileri yüklenemedi.</div>';
+                        weatherResultsDiv.classList.remove('visible');
+                        weatherInfoMessage.textContent = 'Hava durumu verisi alınamadı veya rota bulunamadı.';
+                        warningList.innerHTML = '';
+                        driverWarningsDiv.style.display = 'none';
+                    } else { // Hava durumu sorgusu seçili değilse
+                        document.getElementById('allWeatherLocationsContainer').innerHTML = '';
+                        weatherResultsDiv.classList.remove('visible');
+                        weatherInfoMessage.textContent = 'Hava durumu tahmini devre dışı bırakıldı.';
+                        warningList.innerHTML = '';
+                        driverWarningsDiv.style.display = 'none';
+                    }
+                    optimizedRouteOrderList.innerHTML = ''; 
                 }
             });
         });
@@ -1294,6 +1618,8 @@
             toggleReturnFuelInput();
             setupTollBridgeSelection(); 
             setTodayAsMinDate(); 
+            setupVehicleTypeSelection(); 
+            setupWeatherForecastToggle(); // DOM yüklendiğinde hava durumu toggle'ını ayarla
         });
     </script>
 
