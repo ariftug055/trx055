@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NakCep - Ana Sayfa</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script defer src="/assets/js/app.js"></script>
+</head>
+<body>
+    <!-- Ortak Header -->
+    <header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">NakCep</a>
+    <nav class="main-nav">
+      <a href="#hero">Ana Sayfa</a>
+      <a href="#features">Özellikler</a>
+      <a href="#contact">İletişim</a>
+      <a href="#connect">Connect</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Menüyü Aç">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+
+    <!-- Hero / Tanıtım Bölümü -->
+    <section id="hero" class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">NakCep ile Nakliye Artık Çok Kolay</h1>
+            <p class="hero-subtitle">Rota planlamadan teklif yönetimine, güvenli teslimattan topluluk etkileşimine kadar tüm lojistik ihtiyaçlarınız tek platformda.</p>
+            <div class="hero-cta">
+                <a href="#register" class="btn-primary">Şimdi Üye Ol</a>
+                <a href="#features" class="btn-secondary">Özellikleri Keşfet</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hakkımızda Bölümü -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>Hakkımızda</h2>
+            <p>
+                NakCep, nakliyeciler, işverenler ve sektör destek sağlayıcıları (akaryakıt istasyonları, restoranlar, servis noktaları) arasındaki iş akışını
+                kolaylaştırmak için geliştirilmiş bir web platformudur. Gerçek zamanlı eşleşmeler, rota planlama, yapay zeka destekli teklifler ve
+                topluluk etkileşimi ile lojistik süreçlerinizi hızlandırır ve güvence altına alır.
+            </p>
+        </div>
+    </section>
+
+    <!-- Özellikler Bölümü -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2>Özelliklerimiz</h2>
+            <p class="features-intro">NakCep, lojistik sürecinizi uçtan uca yönetmenizi sağlayan güçlü modüller sunar. Aşağıda başlıca özelliklerimizi görebilirsiniz.</p>
+        <div class="container">
+            <h2>Özelliklerimiz</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Rota Takvimi</h3>
+                    <p>Haftalık iş planınızı görsel takvim ile yönetin.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Oto-Pilot Teklif</h3>
+                    <p>Kriterlerinize uygun işler için otomatik teklif gönderin.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>NakCep Connect</h3>
+                    <p>Sektör profesyonelleriyle bağlantı kurun ve hikayelerinizi paylaşın.</p>
+                </div>
+                <!-- Diğer kartlar... -->
+            </div>
+        </div>
+    </section>
+
+    <!-- İletişim Bölümü -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Bizimle İletişime Geçin</h2>
+            <p>Herhangi bir sorunuz veya öneriniz için bize ulaşın.</p>
+            <form action="/contact" method="POST" class="contact-form">
+                <input type="text" name="name" placeholder="Adınız" required>
+                <input type="email" name="email" placeholder="E-posta" required>
+                <textarea name="message" placeholder="Mesajınız" required></textarea>
+                <button type="submit" class="btn-primary">Gönder</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 NakCep. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+</body>
+</html>
